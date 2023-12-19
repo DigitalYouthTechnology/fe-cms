@@ -6,7 +6,6 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 
 const TambahSimpanan = () => {
-  //   const [kodeAkun, setKodeAkun] = useState('')
   const [namaSimpanan, setNamaSimpanan] = useState('')
   const authToken = localStorage.getItem('accessToken')
   const [error, setError] = useState('')
@@ -42,17 +41,6 @@ const TambahSimpanan = () => {
           </Alert>
         )}
 
-        {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', mb: 3 }}>
-          <Typography sx={{ width: 1 / 3, maxWidth: 1 / 3, justifyContent: 'space-between' }}>Kode Akun</Typography>
-          <TextField
-            sx={{ ml: 5, width: 3 / 4 }}
-            id='outlined-basic'
-            onChange={e => setKodeAkun(e.target.value)}
-            value={kodeAkun}
-            label='Kode Akun'
-            variant='outlined'
-          />
-        </Box> */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', mb: 3 }}>
           <Typography sx={{ width: 1 / 3, maxWidth: 1 / 3, justifyContent: 'space-between' }}>Nama Simpanan</Typography>
           <TextField

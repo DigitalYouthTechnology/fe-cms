@@ -5,7 +5,6 @@ import { Box } from '@mui/system'
 import { DataGrid } from '@mui/x-data-grid'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 const columns = [
   {

@@ -46,14 +46,6 @@ const columns = [
       )
     }
   }
-  // {
-  //   flex: 0.1,
-  //   minWidth: 100,
-  //   sortable: false,
-  //   field: 'actions',
-  //   headerName: 'Actions',
-  //   renderCell: () => <Button variant='contained'>Edit</Button>
-  // }
 ]
 
 const TipeSimpanan = () => {

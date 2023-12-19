@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton'
 import Icon from 'src/@core/components/icon'
 
 // ** Components
-import Autocomplete from 'src/layouts/components/Autocomplete'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
@@ -15,6 +14,7 @@ import ShortcutsDropdown from 'src/@core/layouts/components/shared-components/Sh
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
+import { useRouter } from 'next/router'
 
 const notifications = [
   {
@@ -113,8 +113,10 @@ const shortcuts = [
 ]
 
 const AppBarContent = props => {
+  const router = useRouter();
+
   // ** Props
-  const { hidden, settings, saveSettings, toggleNavVisibility } = props
+  const { settings, saveSettings } = props
 
   // ** Hook
   const auth = useAuth()
@@ -122,12 +124,9 @@ const AppBarContent = props => {
   return (
     <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-        {hidden && !settings.navHidden ? (
-          <IconButton color='inherit' sx={{ ml: -2.75 }} onClick={toggleNavVisibility}>
-            <Icon fontSize='1.5rem' icon='tabler:menu-2' />
-          </IconButton>
-        ) : null}
-        {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
+        <IconButton onClick={() => router.back()}>
+          <Icon icon='eva:arrow-back-outline' />
+        </IconButton>
       </Box>
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
         <LanguageDropdown settings={settings} saveSettings={saveSettings} />

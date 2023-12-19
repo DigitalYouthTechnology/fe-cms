@@ -1,11 +1,9 @@
 import { Button, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import apiContext from '../../configs/api'
-import { DataGrid } from '@mui/x-data-grid'
 import axios from 'axios'
 import { Box } from '@mui/system'
 import { useRouter } from 'next/router'
-import { ButtonsTonalJSXCode } from 'src/views/components/buttons/ButtonsSourceCode'
 
 const TipeSimpanan = () => {
   const [data, setData] = useState([])
