@@ -2,7 +2,7 @@ import { Button, Paper, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import apiContext from '../../../configs/api'
+import apiContext from '../../../../configs/api'
 import { Box } from '@mui/system'
 import Simpan from './createSimpanan'
 
@@ -11,7 +11,6 @@ const Page = () => {
   const id_user = router.query.slug
   const [data, setData] = useState([])
   const authToken = localStorage.getItem('accessToken')
- 
 
   useEffect(() => {
     const fetchUser = async () => {

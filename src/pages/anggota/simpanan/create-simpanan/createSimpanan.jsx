@@ -1,7 +1,7 @@
 import { Button, MenuItem, Paper, Select, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
-import apiContext from '../../../configs/api'
+import apiContext from '../../../../configs/api'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 

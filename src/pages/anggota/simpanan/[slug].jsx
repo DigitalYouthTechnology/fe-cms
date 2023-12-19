@@ -86,7 +86,7 @@ const Page = () => {
             sx={{ mb: 2 }}
             variant='contained'
             color='primary'
-            onClick={() => router.push('/anggota/create-simpanan/' + id_user)}
+            onClick={() => router.push('/anggota/simpanan/create-simpanan/' + id_user)}
           >
             Simpanan Baru
           </Button>
@@ -96,13 +96,13 @@ const Page = () => {
       <Box sx={{ mt: 5, display: 'flex', flexWrap: 'wrap' }}>
         {simpanan.map((simp, idx) => {
           return idx % 2 == 0 ? (
-            <Paper key={simp.id} sx={{ p: 5, width: '49.3%', mr: 2, my:3 }}>
+            <Paper key={simp.id} sx={{ p: 5, width: '49.3%', mr: 2, my: 3 }}>
               <Typography>{simp.simpanan.nama_simpanan}</Typography>
               <hr />
               <SimpananDetail simp={simp} />
             </Paper>
           ) : (
-            <Paper key={simp.id} sx={{ p: 5, width: '49.3%', ml: 2, my:3 }}>
+            <Paper key={simp.id} sx={{ p: 5, width: '49.3%', ml: 2, my: 3 }}>
               <Typography>{simp.simpanan.nama_simpanan}</Typography>
               <hr />
               <SimpananDetail simp={simp} />
@@ -142,7 +142,7 @@ const SimpananDetail = props => {
           variant='contained'
           sx={{ mx: 2 }}
           color='primary'
-          onClick={() => router.push('/anggota/tarik-simpanan/' + id_user)}
+          onClick={() => router.push('/anggota/simpanan/tarik-simpanan/' + id_user)}
         >
           Tarik Simpanan
         </Button>
@@ -150,7 +150,7 @@ const SimpananDetail = props => {
           variant='contained'
           sx={{ mx: 2 }}
           color='primary'
-          onClick={() => router.push('/anggota/tarik-simpanan/' + id_user)}
+          onClick={() => router.push('/anggota/simpanan/riwayat/' + simp.kode)}
         >
           Riwayat Simpanan
         </Button>

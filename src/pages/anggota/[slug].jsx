@@ -67,7 +67,7 @@ const Page = () => {
             sx={{ mb: 2 }}
             variant='contained'
             color='primary'
-            onClick={() => router.push('/anggota/create-simpanan/' + id_user)}
+            onClick={() => router.push('/anggota/simpanan/create-simpanan/' + id_user)}
           >
             Buka Simpanan
           </Button>

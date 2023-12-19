@@ -2,7 +2,7 @@ import { Button, MenuItem, Paper, Select, TextField, Typography } from '@mui/mat
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import apiContext from '../../../configs/api'
+import apiContext from '../../../../configs/api'
 import { Box } from '@mui/system'
 
 const Page = () => {
