@@ -46,12 +46,13 @@ const AuthProvider = ({ children }) => {
           })
           .catch(e => {
             console.log('error', e)
-            if (e.response.status === 401 || e.response.status === 403) {
-              console.log('not authorized')
-              window.localStorage.removeItem(authConfig.storageTokenKeyName)
-              window.localStorage.removeItem('userData')
-              router.push('/login')
-            }
+            // router.push('/login')
+            // if (e.response.status === 401 || e.response.status === 403) {
+            // console.log('not authorized')
+            window.localStorage.removeItem(authConfig.storageTokenKeyName)
+            window.localStorage.removeItem('userData')
+            router.push('/login')
+            // }
             setUser(null)
             setLoading(false)
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
