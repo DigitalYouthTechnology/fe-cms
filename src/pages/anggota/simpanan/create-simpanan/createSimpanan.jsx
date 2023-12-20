@@ -10,9 +10,11 @@ const CreateSimpanan = props => {
   const { data } = props
   const authToken = localStorage.getItem('accessToken')
   const [tipeSimpanan, setTipeSimpanan] = useState([])
+  const [kasBank, setKasBank] = useState([])
   const [selectedSimpanan, setSelectedSimpanan] = useState(0)
   const [nominal, setNominal] = useState(0)
   const [deskripsi, setDeskripsi] = useState('')
+  const [metodeBayar, setMetodeBayar] = useState(0)
 
   const handleChange = event => {
     setSelectedSimpanan(event.target.value)
@@ -34,7 +36,24 @@ const CreateSimpanan = props => {
           setTipeSimpanan([])
         })
     }
+
+    const fetchKasBank = async () => {
+      await axios
+        .get(apiContext.baseUrl + '/rekening/all', {
+          headers: {
+            Authorization: 'Bearer ' + authToken
+          }
+        })
+        .then(res => {
+          setKasBank(res.data.rekening)
+        })
+        .catch(e => {
+          console.log(e)
+          setTipeSimpanan([])
+        })
+    }
     fetchTipeSimpanan()
+    fetchKasBank()
     console.log(tipeSimpanan)
   }, [data])
 
@@ -102,7 +121,20 @@ const CreateSimpanan = props => {
         <Typography sx={{ width: 1 / 3, maxWidth: 1 / 3, justifyContent: 'space-between' }}>
           Metode Pembayaran
         </Typography>
-        <TextField sx={{ ml: 5, width: 3 / 4 }} id='outlined-basic' label='Metode Pembayaran' variant='outlined' />
+        <Select sx={{ ml: 5, width: 3 / 4 }} value={metodeBayar} onChange={e => setMetodeBayar(e.target.value)}>
+          {kasBank.length == 0 ? (
+            <MenuItem value={0}>Null</MenuItem>
+          ) : (
+            <MenuItem value={0}>Pilih tipe simpanan</MenuItem>
+          )}
+          {kasBank.map(tipe => {
+            return (
+              <MenuItem key={tipe.id} value={tipe.kode_akun}>
+                {tipe.nama_rekening}
+              </MenuItem>
+            )
+          })}
+        </Select>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', mb: 3 }}>
         <Typography sx={{ width: 1 / 3, maxWidth: 1 / 3, justifyContent: 'space-between' }}>Deskripsi</Typography>
