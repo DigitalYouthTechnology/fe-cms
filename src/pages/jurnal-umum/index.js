@@ -1,6 +1,9 @@
 import { Button, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import apiContext from 'src/configs/api'
+import dateFormat, { masks } from 'dateformat'
 
 const columns = [
   {
@@ -9,11 +12,11 @@ const columns = [
     minWidth: 220,
     headerName: 'Tanggal',
     renderCell: ({ row }) => {
-      const { tanggal } = row
+      const { createdAt } = row
 
       return (
         <Typography noWrap sx={{ color: 'text.secondary', fontWeight: 500 }}>
-          {tanggal}
+          {dateFormat(createdAt, 'd/m - HH:MM')}
         </Typography>
       )
     }
@@ -26,7 +29,7 @@ const columns = [
     renderCell: ({ row }) => {
       return (
         <Typography noWrap sx={{ color: 'text.secondary', fontWeight: 500 }}>
-          {row.bukti_transaksi}
+          {row.id_transaksi || '-'}
         </Typography>
       )
     }
@@ -52,7 +55,7 @@ const columns = [
     renderCell: ({ row }) => {
       return (
         <Typography noWrap sx={{ color: 'text.secondary', fontWeight: 500 }}>
-          {row.kode}
+          {row.kode_akun}
         </Typography>
       )
     }
@@ -86,27 +89,31 @@ const columns = [
 ]
 
 const JurnalUmum = () => {
-  //   const [data, setData] = useState([])
-  const data = [
-    {
-      id: '1',
-      tanggal: '12 Desember 2022',
-      bukti_transaksi: '1',
-      deskripsi: 'Simpananan Pokok',
-      kode: '2030393',
-      debit: '10000',
-      kredit: '0'
-    },
-    {
-      id: '2',
-      tanggal: '12 Desember 2022',
-      bukti_transaksi: '1',
-      deskripsi: 'Kas',
-      kode: '2030393',
-      debit: '0',
-      kredit: '10000'
+  const [data, setData] = useState([])
+  const authToken = localStorage.getItem('accessToken')
+
+  useEffect(() => {
+    const fetchJurnalUmum = async () => {
+      try {
+        const res = await axios
+          .get(apiContext.baseUrl + '/jurnal-umum', {
+            headers: {
+              Authorization: `Bearer ${authToken}`
+            }
+          })
+          .then(res => {
+            console.log(res.data.data)
+            setData(res.data.data)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } catch (err) {
+        console.log(err)
+      }
     }
-  ]
+    fetchJurnalUmum()
+  }, [authToken])
 
   return (
     <>
@@ -124,11 +131,11 @@ const JurnalUmum = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5
+              pageSize: 10
             }
           }
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[10, 25, 50]}
       />
     </>
   )
