@@ -37,8 +37,16 @@ const navigation = () => {
       icon: 'fluent-mdl2:manufacturing',
       children: [
         {
-          title: 'Stok barang',
-          path: '/stok-barang'
+          title: 'Stok Barang Baku',
+          path: '/stok-barang-baku'
+        },
+        {
+          title: 'Stok Barang Bantu',
+          path: '/stok-barang-bantu'
+        },
+        {
+          title: 'Barang Dalam Proses',
+          path: '/barang-dalam-proses'
         },
         {
           title: 'Produksi Barang',
@@ -64,6 +72,11 @@ const navigation = () => {
           title: 'Pengaturan Simpanan',
           icon: 'mdi:cog-transfer',
           path: '/pengaturan/simpanan'
+        },
+        {
+          title: 'Supplier',
+          icon: 'mdi:cog-transfer',
+          path: '/pengaturan/supplier'
         }
       ]
     }

@@ -124,7 +124,7 @@ const AppBarContent = props => {
   return (
     <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-        <IconButton onClick={() => router.back()}>{/* <Icon icon='eva:arrow-back-outline' /> */}</IconButton>
+        <IconButton onClick={() => router.back()}>{<Icon icon='eva:arrow-back-outline' />}</IconButton>
       </Box>
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
         <LanguageDropdown settings={settings} saveSettings={saveSettings} />
