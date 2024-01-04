@@ -9,6 +9,7 @@ import axios from 'axios'
 
 // ** Config
 import authConfig from 'src/configs/auth'
+import useToast from 'src/components/Toast'
 
 // ** Defaults
 const defaultProvider = {
@@ -46,13 +47,9 @@ const AuthProvider = ({ children }) => {
           })
           .catch(e => {
             console.log('error', e)
-            // router.push('/login')
-            // if (e.response.status === 401 || e.response.status === 403) {
-            // console.log('not authorized')
             window.localStorage.removeItem(authConfig.storageTokenKeyName)
             window.localStorage.removeItem('userData')
             router.push('/login')
-            // }
             setUser(null)
             setLoading(false)
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
@@ -69,6 +66,8 @@ const AuthProvider = ({ children }) => {
   }, [])
 
   const handleLogin = (params, errorCallback) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { Toast } = useToast('login')
     axios
       .post(authConfig.loginEndpoint, params)
       .then(async response => {
@@ -77,10 +76,21 @@ const AuthProvider = ({ children }) => {
         setUser(response.data.payload)
         params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.payload)) : null
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-        router.replace(redirectURL)
+        Toast.fire({
+          icon: 'success',
+          title: 'Login successfully'
+        }).then(() => {
+          router.replace(redirectURL)
+        })
       })
       .catch(err => {
         console.log(err)
+
+        Toast.fire({
+          icon: 'error',
+          title: 'Email or password is incorrect'
+        })
+
         if (errorCallback) errorCallback(err)
       })
   }

@@ -19,6 +19,7 @@ import Icon from 'src/@core/components/icon'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
+import useConfirm from 'src/components/Confirm'
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({
@@ -78,8 +79,25 @@ const UserDropdown = props => {
   }
 
   const handleLogout = () => {
-    logout()
     handleDropdownClose()
+
+    return (
+      <Box sx={{ zIndex: 999999, position: 'absolute' }}>
+        {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          useConfirm({
+            title: 'Are you sure?',
+            text: 'You will be logged out!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, logout!',
+            cancelButtonText: 'No, cancel!',
+            backdrop: false,
+            action: () => logout()
+          })
+        }
+      </Box>
+    )
   }
 
   return (
