@@ -38,6 +38,10 @@ const navigation = () => {
           path: '/stok-barang-baku'
         },
         {
+          title: 'Jurnal Pembelian',
+          path: '/jurnal-pembelian'
+        },
+        {
           title: 'Stok Barang Bantu',
           path: '/stok-barang-bantu'
         },
