@@ -1,3 +1,3 @@
 export default {
-  baseUrl: 'http://localhost:3333/api'
+  baseUrl: 'https://be33.akmal.tech/api'
 }

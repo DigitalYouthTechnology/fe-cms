@@ -11,12 +11,10 @@ const navigation = () => {
       children: [
         {
           title: 'Pengurus',
-          icon: 'mdi:account-multiple',
           path: '/pengurus'
         },
         {
           title: 'Anggota',
-          icon: 'mdi:account',
           path: '/anggota'
         }
       ]
@@ -27,7 +25,6 @@ const navigation = () => {
       children: [
         {
           title: 'Jurnal Umum',
-          icon: 'mdi:book-open',
           path: '/jurnal-umum'
         }
       ]
@@ -60,22 +57,18 @@ const navigation = () => {
       children: [
         {
           title: 'Kas & Bank',
-          icon: 'mdi:bank',
           path: '/kas-bank'
         },
         {
           title: 'Kode Akun',
-          icon: 'mingcute:paper-fill',
           path: '/kode-akun'
         },
         {
           title: 'Pengaturan Simpanan',
-          icon: 'mdi:cog-transfer',
           path: '/pengaturan/simpanan'
         },
         {
           title: 'Supplier',
-          icon: 'mdi:cog-transfer',
           path: '/pengaturan/supplier'
         }
       ]
