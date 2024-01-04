@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import apiContext from '../../configs/api'
-import { Button, Paper, Typography } from '@mui/material'
+import { Button, Icon, IconButton, Paper, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { DataGrid } from '@mui/x-data-grid'
 import axios from 'axios'
@@ -92,7 +92,9 @@ const DetailUser = props => {
 
   return (
     <>
-      <Button variant='contained'>Edit</Button>
+      <Button variant='contained'>
+       Edit
+      </Button>
       <Button variant='outlined' onClick={() => router.push('/anggota/' + id)} sx={{ ml: 2 }}>
         Detail
       </Button>
