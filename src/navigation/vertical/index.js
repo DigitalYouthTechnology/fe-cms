@@ -2,12 +2,12 @@ const navigation = () => {
   return [
     {
       title: 'Dashboard',
-      icon: 'mdi:home',
+      icon: 'iconamoon:home',
       path: '/dashboards/analytics/'
     },
     {
       title: 'Pengguna',
-      icon: 'mdi:account-group',
+      icon: 'clarity:users-line',
       children: [
         {
           title: 'Pengurus',
@@ -23,7 +23,7 @@ const navigation = () => {
     },
     {
       title: 'Rekapitulasi',
-      icon: 'mdi:clipboard',
+      icon: 'mdi:clipboard-outline',
       children: [
         {
           title: 'Jurnal Umum',
@@ -36,6 +36,10 @@ const navigation = () => {
       title: 'Manufaktur',
       icon: 'fluent-mdl2:manufacturing',
       children: [
+        {
+          title: 'Jurnal Pembelian',
+          path: '/jurnal-pembelian'
+        },
         {
           title: 'Stok Barang Baku',
           path: '/stok-barang-baku'
@@ -56,7 +60,7 @@ const navigation = () => {
     },
     {
       title: 'Pengaturan Umum',
-      icon: 'mdi:gear',
+      icon: 'carbon:settings',
       children: [
         {
           title: 'Kas & Bank',

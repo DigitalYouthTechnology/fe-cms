@@ -5,6 +5,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import axios from 'axios'
 import { Box } from '@mui/system'
 import { useRouter } from 'next/router'
+import { Icon } from '@iconify/react'
 
 const columns = [
   {
@@ -39,7 +40,7 @@ const columns = [
     sortable: false,
     field: 'actions',
     headerName: 'Actions',
-    renderCell: () => <Button variant='contained'>Edit</Button>
+    renderCell: () => <Button variant='contained'><Icon icon='eva:edit-outline' /></Button>
   }
 ]
 

@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import apiContext from '../../../configs/api'
 import { useRouter } from 'next/router'
+import { Icon } from '@iconify/react'
 
 const style = {
   position: 'absolute',
@@ -54,7 +55,7 @@ const Add = props => {
   return (
     <>
       <Button variant='contained' onClick={() => setOpen(true)}>
-        Edit
+        <Icon icon='eva:edit-outline' />
       </Button>
       <Modal
         open={open}
