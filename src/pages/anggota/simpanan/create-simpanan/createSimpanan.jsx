@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import apiContext from '../../../../configs/api'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import useAlert from 'src/components/alert'
 
 const CreateSimpanan = props => {
   const router = useRouter()
@@ -59,7 +60,12 @@ const CreateSimpanan = props => {
 
   const handleSimpan = async () => {
     if (!nominal || !deskripsi || !selectedSimpanan) {
-      alert('data tidak lengkap')
+      useAlert({
+        title: 'Form tidak boleh kosong!',
+        text: 'Silahkan isi semua form',
+        icon: 'error',
+        backdrop: false
+      })
     }
 
     const save = {
