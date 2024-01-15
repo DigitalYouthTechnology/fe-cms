@@ -51,11 +51,12 @@ const columns = [
     sortable: false,
     field: 'actions',
     headerName: 'Actions',
-    renderCell: () => <Button variant='contained'>Edit</Button>
+    renderCell: () => <Button variant='contained'><Icon icon='eva:edit-outline' /></Button>
   }
 ]
 
 import apiContext from '../../configs/api'
+import { Icon } from '@iconify/react'
 
 const Pengurus = () => {
   const [data, setData] = useState([])

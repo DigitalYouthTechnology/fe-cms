@@ -7,6 +7,7 @@ import AddModal from './add'
 import EditModal from './edit'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { Icon } from '@iconify/react'
 
 const columns = [
   {
@@ -81,7 +82,7 @@ const Delete = props => {
 
   return (
     <Button variant='outlined' sx={{ ml: 2 }} onClick={() => handleDelete(props.id)}>
-      Delete
+      <Icon icon='eva:trash-2-outline' />
     </Button>
   )
 }

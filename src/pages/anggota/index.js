@@ -5,6 +5,7 @@ import { Box } from '@mui/system'
 import { DataGrid } from '@mui/x-data-grid'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Icon } from '@iconify/react'
 
 const columns = [
   {
@@ -92,9 +93,11 @@ const DetailUser = props => {
 
   return (
     <>
-      <Button variant='contained'>Edit</Button>
+      <Button variant='contained'>
+        <Icon icon='eva:edit-outline' />
+      </Button>
       <Button variant='outlined' onClick={() => router.push('/anggota/' + id)} sx={{ ml: 2 }}>
-        Detail
+        <Icon icon='eva:eye-outline' />
       </Button>
     </>
   )
