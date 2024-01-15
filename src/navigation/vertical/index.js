@@ -37,12 +37,12 @@ const navigation = () => {
       icon: 'fluent-mdl2:manufacturing',
       children: [
         {
-          title: 'Stok Barang Baku',
-          path: '/stok-barang-baku'
-        },
-        {
           title: 'Jurnal Pembelian',
           path: '/jurnal-pembelian'
+        },
+        {
+          title: 'Stok Barang Baku',
+          path: '/stok-barang-baku'
         },
         {
           title: 'Stok Barang Bantu',
@@ -80,7 +80,7 @@ const navigation = () => {
         {
           title: 'Supplier',
           icon: 'mdi:cog-transfer',
-          path: '/pengaturan/supplier',
+          path: '/pengaturan/supplier'
         }
       ]
     }

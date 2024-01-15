@@ -1,5 +1,16 @@
 import { Icon } from '@iconify/react'
-import { Autocomplete, Button, Divider, Paper, TextField, Typography } from '@mui/material'
+import {
+  Autocomplete,
+  Button,
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography
+} from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import apiContext from '../../configs/api'
@@ -99,9 +110,25 @@ const JurnalPembelian = () => {
             )}
             sx={{ width: '30%' }}
           />
+          <FormControl sx={{ width: '10%' }}>
+            <InputLabel id='demo-simple-select-label'>Tipe Barang </InputLabel>
+            <Select
+              labelId='demo-simple-select-label'
+              id='demo-simple-select'
+              defaultValue={0}
+              label='Tipe Barang'
+              onChange={e => alert(e.target.value)}
+            >
+              <MenuItem value={0}>Pilih...</MenuItem>
+              <MenuItem value={'Barang Baku'}>Barang Baku</MenuItem>
+              <MenuItem value={'Barang Bantu'}>Barang Bantu</MenuItem>
+              <MenuItem value={'Barang jual'}>Barang Jual</MenuItem>
+              <MenuItem value={'Lainnya'}>Lainnya</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             value={p.qty || ''}
-            sx={{ width: '10%' }}
+            sx={{ width: '8%' }}
             id='outlined-basic'
             label='Jumlah'
             variant='outlined'
@@ -145,7 +172,7 @@ const JurnalPembelian = () => {
 
           <TextField
             value={p.total_harga || ''}
-            sx={{ width: '30%' }}
+            sx={{ width: '20%' }}
             id='outlined-basic'
             label='Total Harga'
             variant='outlined'
