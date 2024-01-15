@@ -64,7 +64,7 @@ const Pengurus = () => {
 
   const getAllUser = async () => {
     await axios
-      .get(apiContext.baseUrl + '/user/all', {
+      .get(apiContext.baseUrl + '/user/user-pengurus', {
         headers: {
           Authorization: 'Bearer ' + authToken
         }
