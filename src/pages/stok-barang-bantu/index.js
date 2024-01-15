@@ -83,15 +83,23 @@ import { Icon } from '@iconify/react'
 import { useRouter } from 'next/router'
 
 const Pengurus = () => {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      kode_akun: 123,
-      nama_barang: 'Botol 100ml',
-      jumlah: 1900
-    }
-  ])
+  const [data, setData] = useState([])
   const authToken = localStorage.getItem('accessToken')
+
+  const fetchData = async () => {
+    await axios
+      .get(apiContext.baseUrl + '/stock/barang-bantu', {
+        headers: {
+          Authorization: 'Bearer ' + authToken
+        }
+      })
+      .then(response => {
+        setData(response.data.data)
+      })
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <>
