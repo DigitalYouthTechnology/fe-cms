@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import apiContext from '../../configs/api'
-import { Button, Icon, IconButton, Paper, Typography } from '@mui/material'
+import { Button, Paper, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { DataGrid } from '@mui/x-data-grid'
 import axios from 'axios'
