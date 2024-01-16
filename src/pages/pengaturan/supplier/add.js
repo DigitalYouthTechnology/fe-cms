@@ -42,6 +42,7 @@ const Add = props => {
         }
       }).then(response => {
         setOpen(false)
+        setName('')
       })
     } catch (e) {
       alert(e)

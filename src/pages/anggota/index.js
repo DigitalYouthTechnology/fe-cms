@@ -144,7 +144,6 @@ const Pengurus = () => {
           rows={data}
           rowHeight={62}
           columns={columns}
-          checkboxSelection
           disableRowSelectionOnClick
           initialState={{
             pagination: {
