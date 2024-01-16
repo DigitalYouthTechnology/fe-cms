@@ -67,7 +67,7 @@ const AuthProvider = ({ children }) => {
 
   const handleLogin = (params, errorCallback) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { Toast } = useToast('login')
+    const { Toast } = useToast({ zIndex: 1000, position: 'top-end' })
     axios
       .post(authConfig.loginEndpoint, params)
       .then(async response => {

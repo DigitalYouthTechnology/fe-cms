@@ -118,6 +118,7 @@ const Pengurus = () => {
       .then(res => {
         setData(res.data.users)
       })
+      .catch(() => {})
   }
 
   useEffect(() => {

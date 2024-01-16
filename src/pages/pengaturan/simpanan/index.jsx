@@ -40,7 +40,11 @@ const columns = [
     sortable: false,
     field: 'actions',
     headerName: 'Actions',
-    renderCell: () => <Button variant='contained'><Icon icon='eva:edit-outline' /></Button>
+    renderCell: () => (
+      <Button variant='contained'>
+        <Icon icon='eva:edit-outline' />
+      </Button>
+    )
   }
 ]
 

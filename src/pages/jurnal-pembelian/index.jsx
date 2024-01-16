@@ -15,24 +15,24 @@ import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import apiContext from '../../configs/api'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+import useToast from '../../components/Toast'
+import { useRouter } from 'next/router'
 
 const JurnalPembelian = () => {
   const authToken = localStorage.getItem('accessToken')
-
-  const product = [
-    { label: 'The Shawshank Redemption', qty: 1994 },
-    { label: 'The Godfather', qty: 1972 },
-    { label: 'The Godfather: Part II', qty: 1974 },
-    { label: 'The Dark Knight', qty: 2008 }
-  ]
+  const router = useRouter()
+  const product = []
   const [supplier, setSupplier] = useState(null)
   const [suppliers, setSuppliers] = useState([])
 
   const [products, setProducts] = useState([
     {
-      name: null,
-      qty: null,
+      nama_produk: null,
+      jumlah: null,
       harga_satuan: null,
+      tipe_barang: null,
+      satuan: null,
       total_harga: null
     }
   ])
@@ -55,7 +55,7 @@ const JurnalPembelian = () => {
   }
 
   const tambah = () => {
-    setProducts([...products, { name: null, qty: null }])
+    setProducts([...products, { nama_produk: null, jumlah: null }])
   }
 
   const fetchSupplier = async () => {
@@ -66,7 +66,7 @@ const JurnalPembelian = () => {
         }
       })
       const res = response.data.data
-      setSuppliers(prevSuppliers => [...prevSuppliers, ...res.map((m, index) => ({ label: m.name, id: index }))])
+      setSuppliers(res)
     } catch (error) {
       alert(error.message || 'Error fetching suppliers')
     }
@@ -75,6 +75,32 @@ const JurnalPembelian = () => {
   useEffect(() => {
     fetchSupplier()
   }, [])
+
+  const handleSave = async () => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: apiContext.baseUrl + '/pembelian',
+        headers: {
+          Authorization: 'Bearer ' + authToken
+        },
+        data: {
+          id_supplier: supplier,
+          data: products
+        }
+      }).then(response => {
+        const { Toast } = useToast({ zIndex: 1000, position: 'center' })
+        Toast.fire({
+          icon: 'success',
+          title: 'Berhasil membuat pembelian baru'
+        }).then(() => {
+          router.push('/jurnal-pembelian')
+        })
+      })
+    } catch (e) {
+      alert(e)
+    }
+  }
 
   return (
     <Paper sx={{ p: 5 }}>
@@ -90,20 +116,20 @@ const JurnalPembelian = () => {
           <Autocomplete
             disablePortal
             options={product}
-            value={p.name || ''}
+            value={p.nama_produk || ''}
             onChange={(event, newValue) => {
               const newProducts = [...products]
-              newProducts[index] = { ...newProducts[index], name: newValue?.label ?? null }
+              newProducts[index] = { ...newProducts[index], nama_produk: newValue?.label ?? null }
               setProducts(newProducts)
             }}
             renderInput={params => (
               <TextField
                 {...params}
-                value={p.name || ''}
+                value={p.nama_produk || ''}
                 label='Nama Produk'
                 onChange={e => {
                   const newProducts = [...products]
-                  newProducts[index] = { ...newProducts[index], name: e.target.value }
+                  newProducts[index] = { ...newProducts[index], nama_produk: e.target.value }
                   setProducts(newProducts)
                 }}
               />
@@ -117,7 +143,15 @@ const JurnalPembelian = () => {
               id='demo-simple-select'
               defaultValue={0}
               label='Tipe Barang'
-              onChange={e => alert(e.target.value)}
+              onChange={e => {
+                const newProducts = [...products]
+
+                newProducts[index] = {
+                  ...newProducts[index],
+                  tipe_barang: e.target.value
+                }
+                setProducts(newProducts)
+              }}
             >
               <MenuItem value={0}>Pilih...</MenuItem>
               <MenuItem value={'Barang Baku'}>Barang Baku</MenuItem>
@@ -126,8 +160,33 @@ const JurnalPembelian = () => {
               <MenuItem value={'Lainnya'}>Lainnya</MenuItem>
             </Select>
           </FormControl>
+          <FormControl sx={{ width: '10%' }}>
+            <InputLabel id='demo-simple-select-label'>Satuan </InputLabel>
+            <Select
+              labelId='demo-simple-select-label'
+              id='demo-simple-select'
+              defaultValue={0}
+              label='Satuan'
+              onChange={e => {
+                const newProducts = [...products]
+
+                newProducts[index] = {
+                  ...newProducts[index],
+                  satuan: e.target.value
+                }
+                setProducts(newProducts)
+              }}
+            >
+              <MenuItem value={0}>Pilih...</MenuItem>
+              <MenuItem value={'ML'}>ML</MenuItem>
+              <MenuItem value={'L'}>L</MenuItem>
+              <MenuItem value={'PCS'}>PCS</MenuItem>
+              <MenuItem value={'CC'}>CC</MenuItem>
+              <MenuItem value={'KG'}>KG</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
-            value={p.qty || ''}
+            value={p.jumlah || ''}
             sx={{ width: '8%' }}
             id='outlined-basic'
             label='Jumlah'
@@ -141,29 +200,12 @@ const JurnalPembelian = () => {
 
               newProducts[index] = {
                 ...newProducts[index],
-                qty: newQty,
+                jumlah: newQty,
                 total_harga: newTotalHarga
               }
               setProducts(newProducts)
             }}
           />
-          <FormControl sx={{ width: '10%' }}>
-            <InputLabel id='demo-simple-select-label'>Satuan </InputLabel>
-            <Select
-              labelId='demo-simple-select-label'
-              id='demo-simple-select'
-              defaultValue={0}
-              label='Satuan'
-              onChange={e => alert(e.target.value)}
-            >
-              <MenuItem value={0}>Pilih...</MenuItem>
-              <MenuItem value={'ML'}>ML</MenuItem>
-              <MenuItem value={'L'}>L</MenuItem>
-              <MenuItem value={'PCS'}>PCS</MenuItem>
-              <MenuItem value={'CC'}>CC</MenuItem>
-              <MenuItem value={'KG'}>KG</MenuItem>
-            </Select>
-          </FormControl>
 
           <TextField
             value={p.harga_satuan || ''}
@@ -175,7 +217,7 @@ const JurnalPembelian = () => {
             onChange={e => {
               const newProducts = [...products]
               const newHargaSatuan = e.target.value
-              const newQty = newProducts[index].qty || 0
+              const newQty = newProducts[index].jumlah || 0
               const newTotalHarga = newQty * newHargaSatuan
 
               newProducts[index] = {
@@ -197,7 +239,7 @@ const JurnalPembelian = () => {
             onChange={e => {
               const newProducts = [...products]
               const newTotalHarga = e.target.value
-              const newQty = newProducts[index].qty || 1 // Avoid division by zero
+              const newQty = newProducts[index].jumlah || 1 // Avoid division by zero
               const newHargaSatuan = newTotalHarga / newQty
 
               newProducts[index] = {
@@ -217,28 +259,25 @@ const JurnalPembelian = () => {
       <Divider sx={{ my: 3 }} />
 
       <Box>
-        <Autocomplete
-          disablePortal
-          options={suppliers}
-          value={supplier || null}
-          defaultValue={supplier || null}
-          onChange={(event, newValue) => {
-            if (newValue) {
-              setSupplier(newValue.label)
-            }
-          }}
-          renderInput={params => (
-            <TextField
-              {...params}
-              value={supplier || null}
-              label='Supplier'
-              onChange={e => {
-                setSupplier(e.target.value)
-              }}
-            />
-          )}
-          sx={{ width: '30%' }}
-        />
+        <FormControl sx={{ width: '30%' }}>
+          <InputLabel id='demo-simple-select-label'>Supplier</InputLabel>
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            defaultValue={0}
+            label='Suplier'
+            onChange={e => setSupplier(e.target.value)}
+          >
+            <MenuItem value={0}>Pilih...</MenuItem>
+            {suppliers.map((s, i) => {
+              return (
+                <MenuItem key={i} value={s.id}>
+                  {s.name}
+                </MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
       </Box>
 
       <Divider sx={{ my: 3 }} />
@@ -257,6 +296,11 @@ const JurnalPembelian = () => {
           <Typography sx={{ width: '5%' }}>:</Typography>
           <Typography sx={{ width: '45%' }}>{calculateTotalProduct()}</Typography>
         </Box>
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'end', width: 1 }}>
+        <Button variant={'contained'} onClick={handleSave}>
+          Proses Pembelian
+        </Button>
       </Box>
     </Paper>
   )

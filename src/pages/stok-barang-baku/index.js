@@ -82,7 +82,7 @@ import apiContext from '../../configs/api'
 import { Icon } from '@iconify/react'
 import { useRouter } from 'next/router'
 
-const Pengurus = () => {
+const StockBarangBaku = () => {
   const [data, setData] = useState([])
   const authToken = localStorage.getItem('accessToken')
 
@@ -95,6 +95,9 @@ const Pengurus = () => {
       })
       .then(response => {
         setData(response.data.data)
+      })
+      .catch(e => {
+        setData([])
       })
   }
   useEffect(() => {
@@ -132,4 +135,4 @@ const Pengurus = () => {
   )
 }
 
-export default Pengurus
+export default StockBarangBaku

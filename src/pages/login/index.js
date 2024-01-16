@@ -94,7 +94,6 @@ const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
 
-
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
@@ -116,7 +115,6 @@ const LoginPage = () => {
     resolver: yupResolver(schema)
   })
 
- 
   const onSubmit = data => {
     const { email, password } = data
     auth.login({ email, password, rememberMe }, () => {
