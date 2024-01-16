@@ -108,7 +108,7 @@ const JurnalPembelian = () => {
                 }}
               />
             )}
-            sx={{ width: '30%' }}
+            sx={{ width: '25%' }}
           />
           <FormControl sx={{ width: '10%' }}>
             <InputLabel id='demo-simple-select-label'>Tipe Barang </InputLabel>
@@ -147,10 +147,27 @@ const JurnalPembelian = () => {
               setProducts(newProducts)
             }}
           />
+          <FormControl sx={{ width: '10%' }}>
+            <InputLabel id='demo-simple-select-label'>Satuan </InputLabel>
+            <Select
+              labelId='demo-simple-select-label'
+              id='demo-simple-select'
+              defaultValue={0}
+              label='Satuan'
+              onChange={e => alert(e.target.value)}
+            >
+              <MenuItem value={0}>Pilih...</MenuItem>
+              <MenuItem value={'ML'}>ML</MenuItem>
+              <MenuItem value={'L'}>L</MenuItem>
+              <MenuItem value={'PCS'}>PCS</MenuItem>
+              <MenuItem value={'CC'}>CC</MenuItem>
+              <MenuItem value={'KG'}>KG</MenuItem>
+            </Select>
+          </FormControl>
 
           <TextField
             value={p.harga_satuan || ''}
-            sx={{ width: '23%' }}
+            sx={{ width: '18%' }}
             id='outlined-basic'
             label='Harga Satuan'
             variant='outlined'
@@ -172,7 +189,7 @@ const JurnalPembelian = () => {
 
           <TextField
             value={p.total_harga || ''}
-            sx={{ width: '20%' }}
+            sx={{ width: '18%' }}
             id='outlined-basic'
             label='Total Harga'
             variant='outlined'
