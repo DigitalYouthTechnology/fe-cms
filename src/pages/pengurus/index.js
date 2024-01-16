@@ -61,8 +61,11 @@ const columns = [
 
 import apiContext from '../../configs/api'
 import { Icon } from '@iconify/react'
+import { Box } from '@mui/system'
+import { useRouter } from 'next/router'
 
 const Pengurus = () => {
+  const router = useRouter()
   const [data, setData] = useState([])
   const authToken = localStorage.getItem('accessToken')
 
@@ -85,9 +88,13 @@ const Pengurus = () => {
 
   return (
     <>
-      <Paper sx={{ p: 5 }}>
+      <Box sx={{ my: 5, display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ fontSize: 20 }}>Daftar pengurus koperasi</Typography>
-
+        <Button variant='contained' onClick={() => router.push('/pengurus/tambah')}>
+          Tambah pengurus koperasi
+        </Button>
+      </Box>{' '}
+      <Paper sx={{ p: 5 }}>
         <DataGrid
           sx={{
             mt: 3,
@@ -98,7 +105,6 @@ const Pengurus = () => {
           rows={data}
           rowHeight={62}
           columns={columns}
-          checkboxSelection
           disableRowSelectionOnClick
           initialState={{
             pagination: {
