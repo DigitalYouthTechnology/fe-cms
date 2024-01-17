@@ -77,7 +77,7 @@ const JurnalPembelian = () => {
   }, [])
 
   return (
-    <Paper sx={{ p: 5 }}>
+    <Paper sx={{ p: 5 }} >
       <Box sx={{ display: 'flex', width: 1, justifyContent: 'space-between', mb: 3 }}>
         <Typography sx={{ fontSize: 20 }}>Jurnal Pembelian - Tambah Stok</Typography>
         <Button variant='contained' onClick={tambah}>

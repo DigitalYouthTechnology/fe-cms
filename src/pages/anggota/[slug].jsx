@@ -1,4 +1,14 @@
-import { Button, Paper, Typography } from '@mui/material'
+import {
+  Button,
+  Paper,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
+} from '@mui/material'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -31,29 +41,44 @@ const Page = () => {
   return (
     <>
       <Typography sx={{ fontSize: 20, fontWeight: 900 }}>Info Akun</Typography>
-      <Paper sx={{ p: 5, display: 'flex', alignItems: 'start' }}>
+      <Paper sx={{ p: 5, display: 'flex',flexDirection:'column', alignItems: 'center', justifyContent: 'center' }}>
         <Box
           sx={{
             display: 'flex',
-            width: 1
+            width: 1,
+            marginBottom: 5,
           }}
         >
-          <Box sx={{ width: 1 / 3 }}>
-            <Typography sx={{ mr: 5, my: 2 }}>Nama Anggota</Typography>
-            <Typography sx={{ mr: 5, my: 2 }}>No Anggota</Typography>
-            <Typography sx={{ mr: 5, my: 2 }}>No Hp</Typography>
-            <Typography sx={{ mr: 5, my: 2 }}>Email</Typography>
-            <Typography sx={{ mr: 5, my: 2 }}>No Anggota</Typography>
-            <Typography sx={{ mr: 5, my: 2 }}>Terdaftar pada</Typography>
-          </Box>
-          <Box sx={{ width: 2 / 3 }}>
-            <Typography sx={{ my: 2 }}>: {data.name}</Typography>
-            <Typography sx={{ my: 2 }}>: {data.no_anggota}</Typography>
-            <Typography sx={{ my: 2 }}>: {data.phone_number}</Typography>
-            <Typography sx={{ my: 2 }}>: {data.email}</Typography>
-            <Typography sx={{ my: 2 }}>: {data.address}</Typography>
-            <Typography sx={{ my: 2 }}>: {dateFormat(data.createdAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</Typography>
-          </Box>
+          <TableContainer> 
+          <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+            <TableHead>
+              <TableRow>
+                <TableCell>Nama Anggota</TableCell>
+                <TableCell>: {data.name}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>No Anggota</TableCell>
+                <TableCell>: {data.no_anggota}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>No Hp</TableCell>
+                <TableCell>: {data.phone_number}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Email</TableCell>
+                <TableCell>: {data.email}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Alamat</TableCell>
+                <TableCell>: {data.address}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Terdaftar Pada</TableCell>
+                <TableCell>: {dateFormat(data.createdAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</TableCell>
+              </TableRow>
+            </TableHead>
+          </Table>
+          </TableContainer>
         </Box>
         <Box
           sx={{
@@ -64,7 +89,7 @@ const Page = () => {
           }}
         >
           <Button
-            sx={{ mb: 2 }}
+            sx={{ mb: 2,  }}
             variant='contained'
             color='primary'
             onClick={() => router.push('/anggota/simpanan/create-simpanan/' + id_user)}
