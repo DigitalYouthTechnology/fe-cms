@@ -118,6 +118,7 @@ const Pengurus = () => {
       .then(res => {
         setData(res.data.users)
       })
+      .catch(() => {})
   }
 
   useEffect(() => {
@@ -143,7 +144,6 @@ const Pengurus = () => {
           rows={data}
           rowHeight={62}
           columns={columns}
-          checkboxSelection
           disableRowSelectionOnClick
           initialState={{
             pagination: {

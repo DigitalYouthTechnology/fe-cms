@@ -9,12 +9,12 @@ const columns = [
     field: 'no',
     minWidth: 220,
     headerName: 'NO',
-    renderCell: ({ row }) => {
-      const { index } = row
+    renderCell: params => {
+      const { id } = params.row
 
       return (
         <Typography noWrap sx={{ color: 'text.secondary', fontWeight: 500 }}>
-          {index}
+          {params.api.getRowIndexRelativeToVisibleRows(params.row.id) + 1}
         </Typography>
       )
     }
@@ -108,7 +108,6 @@ const Pengurus = () => {
           rows={data}
           rowHeight={62}
           columns={columns}
-          checkboxSelection
           disableRowSelectionOnClick
           initialState={{
             pagination: {

@@ -9,12 +9,12 @@ const columns = [
     field: 'no',
     minWidth: 220,
     headerName: 'NO',
-    renderCell: ({ row }) => {
-      const { index } = row
+    renderCell: params => {
+      const { id } = params.row
 
       return (
         <Typography noWrap sx={{ color: 'text.secondary', fontWeight: 500 }}>
-          {index}
+          {params.api.getRowIndexRelativeToVisibleRows(params.row.id) + 1}
         </Typography>
       )
     }
@@ -82,7 +82,7 @@ import apiContext from '../../configs/api'
 import { Icon } from '@iconify/react'
 import { useRouter } from 'next/router'
 
-const Pengurus = () => {
+const StockBarangBantu = () => {
   const [data, setData] = useState([])
   const authToken = localStorage.getItem('accessToken')
 
@@ -96,6 +96,7 @@ const Pengurus = () => {
       .then(response => {
         setData(response.data.data)
       })
+      .catch(e => {})
   }
   useEffect(() => {
     fetchData()
@@ -116,7 +117,6 @@ const Pengurus = () => {
           rows={data}
           rowHeight={62}
           columns={columns}
-          checkboxSelection
           disableRowSelectionOnClick
           initialState={{
             pagination: {
@@ -132,4 +132,4 @@ const Pengurus = () => {
   )
 }
 
-export default Pengurus
+export default StockBarangBantu
