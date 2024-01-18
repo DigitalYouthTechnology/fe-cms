@@ -89,6 +89,7 @@ const JurnalPembelian = () => {
           data: products
         }
       }).then(response => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         const { Toast } = useToast({ zIndex: 1000, position: 'center' })
         Toast.fire({
           icon: 'success',

@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material'
+  import { Paper, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
