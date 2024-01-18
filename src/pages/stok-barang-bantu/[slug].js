@@ -1,7 +1,9 @@
 import { Paper, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import apiContext from '../../configs/api'
+import axios from 'axios'
 
 const columns = [
   {
@@ -9,12 +11,12 @@ const columns = [
     field: 'no',
     minWidth: 10,
     headerName: 'NO',
-    renderCell: ({ row }) => {
-      const { id } = row
+    renderCell: params => {
+      const { id } = params.row
 
       return (
         <Typography noWrap sx={{ color: 'text.secondary', fontWeight: 500 }}>
-          {id}
+          {params.api.getRowIndexRelativeToVisibleRows(params.row.id) + 1}
         </Typography>
       )
     }
@@ -88,75 +90,72 @@ const columns = [
 
 const Detail = () => {
   const slug = useRouter().query.slug
+  const authToken = localStorage.getItem('accessToken')
+  const [data, setData] = useState(null)
 
-  const [data, setData] = useState([
-    {
-      id: 1,
-      kode_transaksi: 'TRX/001/2023',
-      tipe: 'MASUK',
-      jumlah: 2000,
-      jumlah_awal: 0,
-      jumlah_akhir: 2000
-    },
-    {
-      id: 2,
-      kode_transaksi: 'PROD/001/2023',
-      tipe: 'KELUAR',
-      jumlah: 100,
-      jumlah_awal: 2000,
-      jumlah_akhir: 1900
-    }
-  ])
+  const fecthMutasi = async () => {
+    await axios
+      .get(apiContext.baseUrl + '/stock/' + slug, {
+        headers: {
+          Authorization: 'Bearer ' + authToken
+        }
+      })
+      .then(res => {
+        setData(res.data.data)
+        console.warn(res.data.data)
+      })
+  }
 
-  const [barang, setBarang] = useState({
-    id: 1,
-    kode_akun: 123,
-    nama_barang: 'Botol 100ml',
-    jumlah: 1900
-  })
+  useEffect(() => {
+    fecthMutasi()
+  }, [])
 
   return (
     <>
-      <Paper sx={{ p: 5 }}>
-        <Typography variant='h4' sx={{ mb: 5 }}>
-          Detail Stok Barang
-        </Typography>
-        <Typography variant='h6' sx={{ mb: 5 }}>
-          ID BARANG : {slug}
-        </Typography>
-        <Typography variant='h6' sx={{ mb: 5 }}>
-          NAMA BARANG : {barang.nama_barang}
-        </Typography>
-        <Typography variant='h6' sx={{ mb: 5 }}>
-          TOTAL STOK : {barang.jumlah}
-        </Typography>
-      </Paper>
-      <Paper sx={{ p: 5, mt: 3 }}>
-        <Typography variant='h4' sx={{ mb: 5 }}>
-          Mutasi Barang
-        </Typography>
-        <DataGrid
-          sx={{
-            mt: 3,
-            border: '1px solid #00000020'
-          }}
-          autoHeight
-          pagination
-          rows={data}
-          rowHeight={62}
-          columns={columns}
-          checkboxSelection
-          disableRowSelectionOnClick
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5
-              }
-            }
-          }}
-          pageSizeOptions={[5, 10]}
-        />
-      </Paper>
+      {data && (
+        <>
+          <Paper sx={{ p: 5 }}>
+            <Typography variant='h4' sx={{ mb: 5 }}>
+              Detail Stok Barang
+            </Typography>
+            <Typography variant='h6' sx={{ mb: 5 }}>
+              ID BARANG : {slug}
+            </Typography>
+            <Typography variant='h6' sx={{ mb: 5 }}>
+              NAMA BARANG : {data.nama_barang}
+            </Typography>
+            <Typography variant='h6' sx={{ mb: 5 }}>
+              TOTAL STOK : {data.jumlah} {data.satuan}
+            </Typography>
+          </Paper>
+          <Paper sx={{ p: 5, mt: 3 }}>
+            <Typography variant='h4' sx={{ mb: 5 }}>
+              Mutasi Barang
+            </Typography>
+            <DataGrid
+              sx={{
+                mt: 3,
+                border: '1px solid #00000020'
+              }}
+              autoHeight
+              pagination
+              rows={data.mutasi_barang}
+              rowHeight={62}
+              columns={columns}
+              checkboxSelection
+              disableRowSelectionOnClick
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5
+                  }
+                }
+              }}
+              pageSizeOptions={[5, 10]}
+            />
+          </Paper>
+        </>
+      )}
     </>
   )
 }

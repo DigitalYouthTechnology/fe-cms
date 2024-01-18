@@ -81,8 +81,10 @@ const Detail = props => {
 import apiContext from '../../configs/api'
 import { Icon } from '@iconify/react'
 import { useRouter } from 'next/router'
+import { Box } from '@mui/system'
 
 const Pengurus = () => {
+  const router = useRouter()
   const [data, setData] = useState([
     {
       id: 1,
@@ -96,7 +98,12 @@ const Pengurus = () => {
   return (
     <>
       <Paper sx={{ p: 5 }}>
-        <Typography sx={{ fontSize: 20 }}>Data Produksi</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography sx={{ fontSize: 20 }}>Data Produksi</Typography>
+          <Button variant={'contained'} onClick={() => router.push('/produksi-barang/produksi-baru')}>
+            Buat Produksi Baru
+          </Button>
+        </Box>
 
         <DataGrid
           sx={{

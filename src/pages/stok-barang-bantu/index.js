@@ -64,7 +64,7 @@ const columns = [
     sortable: false,
     field: 'actions',
     headerName: 'Actions',
-    renderCell: row => <Detail id={row.id} />
+    renderCell: ({ row }) => <Detail id={row.kode_akun} />
   }
 ]
 

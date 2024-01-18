@@ -1,4 +1,4 @@
 export default {
   // baseUrl: 'https://be33.akmal.tech/api'
-  baseUrl: 'http://localhost:3333/api'
+  baseUrl: 'https://be-koperasi.dytech.my.id/api'
 }
