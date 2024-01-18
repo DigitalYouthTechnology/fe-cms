@@ -1,10 +1,21 @@
-import { Paper, Typography } from '@mui/material'
+import {
+  Button,
+  Paper,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
+} from '@mui/material'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import apiContext from '../../../../configs/api'
 import { Box } from '@mui/system'
 import Simpan from './createSimpanan'
+import dateFormat, { masks } from 'dateformat'
 
 const Page = () => {
   const router = useRouter()
@@ -30,8 +41,60 @@ const Page = () => {
 
   return (
     <>
-      <Paper sx={{ p: 5, display: 'flex', alignItems: 'start' }}>
+      <Paper sx={{ p: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Box
+          sx={{
+            display: 'flex',
+            width: 1 / 2,
+            marginBottom: 5
+          }}
+        >
+          <TableContainer>
+            <Table sx={{ minWidth: 300 }} aria-label='simple table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nama Anggota</TableCell>
+                  <TableCell>: {data.name}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>No Anggota</TableCell>
+                  <TableCell>: {data.no_anggota}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>No Hp</TableCell>
+                  <TableCell>: {data.phone_number}</TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+          </TableContainer>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            width: 1 / 2,
+            marginBottom: 5
+          }}
+        >
+          <TableContainer>
+            <Table sx={{ minWidth: 300 }} aria-label='simple table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Email</TableCell>
+                  <TableCell>: {data.email}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Alamat</TableCell>
+                  <TableCell>: {data.address}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Terdaftar Pada</TableCell>
+                  <TableCell>: {dateFormat(data.createdAt, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}</TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+          </TableContainer>
+        </Box>
+        {/* <Box
           sx={{
             display: 'flex',
             width: 1 / 3,
@@ -66,7 +129,7 @@ const Page = () => {
             <Typography>: {data.address}</Typography>
             <Typography>: {data.createdAt}</Typography>
           </Box>
-        </Box>
+        </Box> */}
       </Paper>
 
       <Typography sx={{ fontSize: 20, mt: 5 }}>Buka Simpanan</Typography>
