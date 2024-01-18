@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import apiContext from '../../../../configs/api'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import useAlert from 'src/components/alert'
+import useAlert from '../../../../components/Alert'
 
 const CreateSimpanan = props => {
   const router = useRouter()
